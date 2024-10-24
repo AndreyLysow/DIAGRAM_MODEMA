@@ -1,6 +1,7 @@
 import React from 'react';
 import { saveAs } from 'file-saver';
 import html2canvas from 'html2canvas';
+import Image from 'next/image';
 
 const ControlPanel = ({ reactFlowInstance, showGrid, setShowGrid }) => {
   const saveToJson = () => {
@@ -62,13 +63,13 @@ const ControlPanel = ({ reactFlowInstance, showGrid, setShowGrid }) => {
         Ромб
       </div>
 
-      {/* Удаляем лишний текст и стили */}
+      {/* Используем next/image для загрузки изображения */}
       <div
         draggable
         onDragStart={(event) => event.dataTransfer.setData('application/reactflow', 'customPSVNode')}
         style={{ marginBottom: '10px', cursor: 'grab' }}
       >
-        <img src="./psv.svg" alt="PSV Icon" style={{ width: '50px', height: '50px' }} />
+        <Image src="/psv.svg" alt="PSV Icon" width={50} height={50} />
       </div>
 
       {/* Кнопка для скрытия/показа сетки */}

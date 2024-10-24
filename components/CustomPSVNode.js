@@ -3,14 +3,11 @@ import { Handle } from 'react-flow-renderer';
 import { ReactSVG } from 'react-svg';
 
 const CustomPSVNode = () => {
-  const [dimensions, setDimensions] = useState({ width: 100, height: 100 }); // Начальные размеры уменьшены в 2 раза
+  const [dimensions, setDimensions] = useState({ width: 100, height: 100 });
 
-  // Обработка изменения размера
   const handleResize = (svgElement) => {
-    if (svgElement) {
-      const svgBBox = svgElement.getBBox();
-      setDimensions({ width: svgBBox.width, height: svgBBox.height });
-    }
+    const svgBBox = svgElement.getBBox();
+    setDimensions({ width: svgBBox.width, height: svgBBox.height });
   };
 
   const handleSize = 6; // Размер точек подключения
@@ -27,7 +24,7 @@ const CustomPSVNode = () => {
     }}>
       {/* SVG */}
       <ReactSVG 
-        src="/psv.svg" // Правильный путь к SVG
+        src="/psv.svg"
         beforeInjection={(svg) => {
           svg.setAttribute('width', '100%');
           svg.setAttribute('height', '100%');
@@ -43,8 +40,17 @@ const CustomPSVNode = () => {
         style={{ position: 'absolute', top: 0, left: 0 }} 
       />
 
-      {/* Точки подключения */}
-      <Handle type="target" position="top" id="top" style={{
+      {/* Верхняя точка */}
+      <Handle type="source" position="top" id="top-source" style={{
+        top: 0,
+        left: '50%',
+        backgroundColor: 'red',
+        width: `${handleSize}px`,
+        height: `${handleSize}px`,
+        position: 'absolute',
+        transform: 'translate(-50%, -50%)',
+      }} />
+      <Handle type="target" position="top" id="top-target" style={{
         top: 0,
         left: '50%',
         backgroundColor: 'red',
@@ -54,7 +60,17 @@ const CustomPSVNode = () => {
         transform: 'translate(-50%, -50%)',
       }} />
 
-      <Handle type="target" position="left" id="left" style={{
+      {/* Левая боковая точка */}
+      <Handle type="source" position="left" id="left-source" style={{
+        top: '50%',
+        left: 0,
+        backgroundColor: 'blue',
+        width: `${handleSize}px`,
+        height: `${handleSize}px`,
+        position: 'absolute',
+        transform: 'translate(-50%, -50%)',
+      }} />
+      <Handle type="target" position="left" id="left-target" style={{
         top: '50%',
         left: 0,
         backgroundColor: 'blue',
@@ -64,19 +80,39 @@ const CustomPSVNode = () => {
         transform: 'translate(-50%, -50%)',
       }} />
 
-      <Handle type="source" position="right" id="right" style={{
+      {/* Правая боковая точка */}
+      <Handle type="source" position="right" id="right-source" style={{
         top: '50%',
         right: 0,
-        backgroundColor: 'red',
+        backgroundColor: 'blue',
+        width: `${handleSize}px`,
+        height: `${handleSize}px`,
+        position: 'absolute',
+        transform: 'translate(50%, -50%)',
+      }} />
+      <Handle type="target" position="right" id="right-target" style={{
+        top: '50%',
+        right: 0,
+        backgroundColor: 'blue',
         width: `${handleSize}px`,
         height: `${handleSize}px`,
         position: 'absolute',
         transform: 'translate(50%, -50%)',
       }} />
 
-      <Handle type="source" position="bottom-left" id="bottom-left" style={{
+      {/* Нижняя точка слева */}
+      <Handle type="source" position="bottom" id="bottom-left-source" style={{
         bottom: 0,
-        left: '15%',
+        left: '25%',  // Смещение для левой точки
+        backgroundColor: 'red',
+        width: `${handleSize}px`,
+        height: `${handleSize}px`,
+        position: 'absolute',
+        transform: 'translate(-50%, 50%)',
+      }} />
+      <Handle type="target" position="bottom" id="bottom-left-target" style={{
+        bottom: 0,
+        left: '25%',  // Смещение для левой точки
         backgroundColor: 'red',
         width: `${handleSize}px`,
         height: `${handleSize}px`,
@@ -84,9 +120,19 @@ const CustomPSVNode = () => {
         transform: 'translate(-50%, 50%)',
       }} />
 
-      <Handle type="source" position="bottom-right" id="bottom-right" style={{
+      {/* Нижняя точка справа */}
+      <Handle type="source" position="bottom" id="bottom-right-source" style={{
         bottom: 0,
-        left: '85%',
+        left: '75%',  // Смещение для правой точки
+        backgroundColor: 'blue',
+        width: `${handleSize}px`,
+        height: `${handleSize}px`,
+        position: 'absolute',
+        transform: 'translate(-50%, 50%)',
+      }} />
+      <Handle type="target" position="bottom" id="bottom-right-target" style={{
+        bottom: 0,
+        left: '75%',  // Смещение для правой точки
         backgroundColor: 'blue',
         width: `${handleSize}px`,
         height: `${handleSize}px`,
